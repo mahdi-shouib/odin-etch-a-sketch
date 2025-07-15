@@ -3,6 +3,14 @@ const container = document.getElementById('container');
 const newButton = document.getElementById('new');
 const clearButton = document.getElementById('clear');
 
+function randomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color += 'cc';
+}
 
 function createGrid(side) {
     const width = container.offsetWidth - 8;
@@ -16,7 +24,9 @@ function createGrid(side) {
             cell.style.width = `${(width / side)}px`;
             cell.style.height = `${(width / side)}px`;
             cell.addEventListener('mouseover', () => {
-                cell.classList.add('hover');
+                if (cell.style.backgroundColor === '') {
+                    cell.style.backgroundColor = randomColor();
+                }
             });
             row.appendChild(cell);
         }
@@ -36,7 +46,7 @@ newButton.addEventListener('click', () => {
 clearButton.addEventListener('click', () => {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
-        cell.classList.remove('hover');
+        cell.style.backgroundColor = '';
     });
 });
 
