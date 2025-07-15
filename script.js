@@ -4,12 +4,10 @@ const newButton = document.getElementById('new');
 const clearButton = document.getElementById('clear');
 
 function randomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color += 'cc';
+    const randomR = Math.floor(Math.random() * 256);
+    const randomG = Math.floor(Math.random() * 256);
+    const randomB = Math.floor(Math.random() * 256);
+    return `rgb(${randomR}, ${randomG}, ${randomB})`;
 }
 
 function createGrid(side) {
@@ -24,8 +22,12 @@ function createGrid(side) {
             cell.style.width = `${(width / side)}px`;
             cell.style.height = `${(width / side)}px`;
             cell.addEventListener('mouseover', () => {
-                if (cell.style.backgroundColor === '') {
+                const color = cell.style.backgroundColor;
+                if (color === '') {
                     cell.style.backgroundColor = randomColor();
+                    cell.style.opacity = 0.2;
+                } else if (color.startsWith('rgb')) {
+                    cell.style.opacity = parseFloat(cell.style.opacity) + 0.2;
                 }
             });
             row.appendChild(cell);
