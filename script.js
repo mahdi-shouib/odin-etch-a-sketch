@@ -1,6 +1,7 @@
 const body = document.querySelector('body');
 const container = document.getElementById('container');
 const newButton = document.getElementById('new');
+const clearButton = document.getElementById('clear');
 
 
 function createGrid(side) {
@@ -30,6 +31,13 @@ newButton.addEventListener('click', () => {
         return;
     }
     createGrid(sideLength);
+});
+
+clearButton.addEventListener('click', () => {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.classList.remove('hover');
+    });
 });
 
 createGrid(16);
